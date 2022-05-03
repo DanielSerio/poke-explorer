@@ -4,6 +4,7 @@ import {
 import {NextLink} from '@mantine/next';
 import type {NextPage} from 'next';
 import {useMemo} from 'react';
+import Loader from '../components/Loader';
 import PageBlock from '../components/Page/Block';
 import BlockCard from '../components/Page/BlockCard';
 import Page from '../components/Page/Page';
@@ -23,13 +24,13 @@ interface HomePageProps {
 const useListStyles = createStyles(createListStyles);
 // TODO: Add loading states
 const Home: NextPage<HomePageProps> = ({...props}: HomePageProps) => {
-  const {data} = useGetVersionDetailsQuery(props.version, {
+  const {data, isLoading} = useGetVersionDetailsQuery(props.version, {
     refetchOnMountOrArgChange: true,
   });
 
   const id = useMemo(() => `${data?.id || 1}`, [data]);
 
-  const {data: details, error: detailsError} =
+  const {data: details, error: detailsError, isLoading: detailsIsLoading} =
     useGetGenerationDetailsQuery(id, {
       refetchOnMountOrArgChange: true,
       refetchOnFocus: true,
@@ -44,6 +45,9 @@ const Home: NextPage<HomePageProps> = ({...props}: HomePageProps) => {
         <Text size={'xl'} sx={(t: MantineTheme) => ({
           color: t.colors[t.primaryColor][t.colorScheme === 'dark'? 3 : 8],
         })}>Version {titlecase(props.version)}</Text>
+        {(isLoading || detailsIsLoading) && (
+          <Loader />
+        )}
       </PageBlock>
       {Boolean(detailsError) && (
         <PageBlock>

@@ -1,0 +1,15 @@
+@keyframes load {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    outline-offset: 32px;
+    outline-width: 16px;
+  }
+  100% {
+    transform: rotate(360deg);
+    outline-offset: 64px;
+    outline-width: 64px;
+    outline-color: transparent;
+  }
+}

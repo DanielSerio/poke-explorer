@@ -1,6 +1,7 @@
 import {Box, createStyles, List, ScrollArea, SimpleGrid} from '@mantine/core';
 import {NextLink} from '@mantine/next';
 import {GetStaticPaths, GetStaticProps, NextPage} from 'next';
+import Loader from '../../components/Loader';
 import PageBlock from '../../components/Page/Block';
 import BlockCard from '../../components/Page/BlockCard';
 import Page from '../../components/Page/Page';
@@ -23,7 +24,7 @@ const useListStyles = createStyles(createListStyles);
 const useVerticalTableStyles = createStyles(createVerticalTableStyles);
 // TODO: add loading states
 const TypePage: NextPage<TypePageProps> = ({type, ...props}: TypePageProps) => {
-  const {data: typeData} = useGetTypeDetailsQuery(type);
+  const {data: typeData, isLoading} = useGetTypeDetailsQuery(type);
   const {classes: listClasses} = useListStyles();
   const {classes: vTableClasses} = useVerticalTableStyles();
   return (
@@ -32,7 +33,8 @@ const TypePage: NextPage<TypePageProps> = ({type, ...props}: TypePageProps) => {
       description={`Pokemon Species ${type}`}
       {...props}>
       <PageBlock>
-        <SimpleGrid cols={1} spacing={'md'}
+        {isLoading && <Loader />}
+        {Boolean(typeData) && <SimpleGrid cols={1} spacing={'md'}
           breakpoints={[
             {
               minWidth: 640,
@@ -45,25 +47,21 @@ const TypePage: NextPage<TypePageProps> = ({type, ...props}: TypePageProps) => {
           ]}
           sx={{alignItems: 'flex-start'}}>
           <BlockCard title={titlecase(type) + ' Type'}>
-            {Boolean(typeData) &&
             <Box className={vTableClasses.root}>
               <span className="name">Generation:</span>
               <span>{typeData?.generation.name}</span>
               <span className="name">ID:</span>
               <span>{typeData?.id}</span>
             </Box>
-            }
           </BlockCard>
           <BlockCard title={'Moves'}>
-            {Boolean(typeData) &&
             <Box>
               <ScrollArea style={{height: 280}}>
                 <List
                   listStyleType={'none'}
                   classNames={listClasses}>
                   {
-                    Boolean(typeData) &&
-                  (typeData as PokemonTypeData).moves?.length > 0 &&
+                    (typeData as PokemonTypeData).moves?.length > 0 &&
                   (typeData as PokemonTypeData).moves.map((move: NamedItem) => {
                     return (
                       <List.Item px={'sm'} key={move.name}>
@@ -74,11 +72,9 @@ const TypePage: NextPage<TypePageProps> = ({type, ...props}: TypePageProps) => {
                 </List>
               </ScrollArea>
             </Box>
-            }
           </BlockCard>
           <BlockCard title="Damage From">
             {
-              Boolean(typeData) &&
               Boolean(typeData?.damage_relations) && (
                 <Box className={vTableClasses.root}>
                   <span className="name">2x DMG</span>
@@ -170,7 +166,7 @@ const TypePage: NextPage<TypePageProps> = ({type, ...props}: TypePageProps) => {
                 </Box>
               )}
           </BlockCard>
-        </SimpleGrid>
+        </SimpleGrid>}
       </PageBlock>
     </Page>
   );

@@ -6,6 +6,8 @@ import {Provider as ReduxProvider} from 'react-redux';
 import {getVersionColor} from '../lib/color';
 import {VersionName} from '../services/types';
 import {store} from '../store';
+import './animations.css';
+
 /**
  * Root Component
  * @param {any} props - Root component props
