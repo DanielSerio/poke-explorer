@@ -14,6 +14,7 @@ export function cleanKabob(
     kabobbed: string,
     lowerRemainder: boolean = false,
 ): string {
+  if (!kabobbed.indexOf('-')) return titlecase(kabobbed);
   return kabobbed
       .trim()
       .split(/\-/g)

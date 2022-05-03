@@ -15,9 +15,6 @@ export function createListStyles(t: MantineTheme): Record<string, CSSObject> {
         t.colors.gray[3],
       },
       'a': {
-        'color': t.colorScheme === 'dark' ?
-        t.colors.blue[3] :
-        t.colors.blue[9],
         'textDecoration': 'none',
         'display': 'block',
         'padding': `0 ${t.spacing.sm}px`,

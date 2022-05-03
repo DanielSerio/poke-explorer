@@ -9,7 +9,9 @@ export function titlecase(
     lowerRemainder: boolean = false,
 ): string {
   value = value.trim();
+  if (value.length === 0) return '';
   const first: string = value[0].toUpperCase();
+  if (value.length === 1) return first;
   const rest: string = value.slice(1);
   return `${first}${lowerRemainder ?rest.toLowerCase() : rest}`;
 }

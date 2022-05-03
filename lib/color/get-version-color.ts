@@ -15,9 +15,6 @@ export function getVersionColor(version: VersionName): string {
     case 'black-2':
     case 'xd':
       return 'dark';
-    case 'white':
-    case 'white-2':
-      return 'white';
     case 'blue':
     case 'x':
     case 'diamond':

@@ -21,8 +21,8 @@ const createPageStyles = (t: MantineTheme): Record<string, CSSObject> => {
       'a': {
         textDecoration: 'none',
         color: t.colorScheme === 'dark' ?
-          t.colors.blue[3] :
-          t.colors.blue[9],
+          t.colors[t.primaryColor][3] :
+          t.colors[t.primaryColor][9],
       },
     },
   });

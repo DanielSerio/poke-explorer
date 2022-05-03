@@ -251,12 +251,12 @@ interface TypeName {
   name: string;
 }
 
-interface TypeDataGameindex {
+export interface TypeDataGameindex {
   game_index: number;
   generation: NamedItem;
 }
 
-interface Damagerelations {
+export interface Damagerelations {
   double_damage_from: NamedItem[];
   double_damage_to: any[];
   half_damage_from: any[];
