@@ -1,5 +1,4 @@
 import {Box, BoxProps, Container} from '@mantine/core';
-import React from 'react';
 
 export interface PageBlockProps extends BoxProps<'section'> {
 

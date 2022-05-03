@@ -3,6 +3,7 @@ import {
   CSSObject, MantineTheme,
 } from '@mantine/core';
 import Head from 'next/head';
+import PageHeader from './Header';
 
 export interface PageProps extends AppShellProps {
   title: string
@@ -29,7 +30,7 @@ export default function Page(
 ) {
   const {classes} = usePageStyles();
   return (
-    <AppShell classNames={classes} {...props}>
+    <AppShell classNames={classes} header={<PageHeader />} {...props}>
       <Head>
         <title key={0}>{title}</title>
         <meta key={1} name="description" content={description} />

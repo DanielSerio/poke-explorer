@@ -2,11 +2,13 @@
   <text
     x="2"
     y="31"
+    dominant-baseline="middle"
     alignment-baseline="middle"
     font-family="Cambria"
     fill="#fcc419"
     stroke="#5c7cfa"
+    paint-order="stroke"
     stroke-width="2"
     font-weight="700"
-    font-size="64">PokéExplorer</text>
+    font-size="60">PokéExplorer</text>
 </svg>
