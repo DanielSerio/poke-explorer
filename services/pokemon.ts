@@ -1,18 +1,46 @@
-// Need to use the React-specific entry point to allow generating React hooks
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-// import type {Pokemon} from './types';
+import type {
+  Pokemon,
+  PokemonEncounter,
+  PokemonNamesResults,
+  PokemonTypeData,
+  PokemonTypesResults,
+  VersionsResults,
+  VersionDetails,
+} from './types';
 
-// Define a service using a base URL and expected endpoints
 export const pokemonApi = createApi({
   reducerPath: 'pokemonApi',
   baseQuery: fetchBaseQuery({baseUrl: 'https://pokeapi.co/api/v2/'}),
   endpoints: (builder) => ({
-    getPokemonByName: builder.query<any, string>({
+    getAllPokemonNames: builder.query<PokemonNamesResults, string>({
+      query: () => `pokemon?limit=100000&offset=0`,
+    }),
+    getPokemonByName: builder.query<Pokemon, string>({
       query: (name) => `pokemon/${name}`,
+    }),
+    getEncounters: builder.query<PokemonEncounter[], string>({
+      query: (index) => `pokemon/${index}/encounters`,
+    }),
+    getAllTypes: builder.query<PokemonTypesResults, string>({
+      query: () => `type?limit=100&offset=0`,
+    }),
+    getTypeDetails: builder.query<PokemonTypeData, string>({
+      query: (name) => `type/${name}`,
+    }),
+    getAllVersions: builder.query<VersionsResults, string>({
+      query: () => `version?offset=0&limit=1000`,
+    }),
+    getVersionDetails: builder.query<VersionDetails, string>({
+      query: (name) => `version/${name}`,
     }),
   }),
 });
 
-// Export hooks for usage in function components, which are
-// auto-generated based on the defined endpoints
-export const {useGetPokemonByNameQuery} = pokemonApi;
+export const {
+  useGetPokemonByNameQuery,
+  useGetAllPokemonNamesQuery,
+  useGetEncountersQuery,
+  useGetAllTypesQuery,
+  useGetTypeDetailsQuery,
+} = pokemonApi;
