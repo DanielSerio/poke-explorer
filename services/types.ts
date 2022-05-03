@@ -60,12 +60,12 @@ export interface Generationviii {
 
 export interface Generationvii {
   icons: Dreamworld;
-  'ultra-sun-ultra-moon': Home;
+  'ultra-sun-ultra-moon': HomeIcons;
 }
 
 export interface Generationvi {
-  'omegaruby-alphasapphire': Home;
-  'x-y': Home;
+  'omegaruby-alphasapphire': HomeIcons;
+  'x-y': HomeIcons;
 }
 
 export interface Generationv {
@@ -160,7 +160,7 @@ export interface Redblue {
 
 export interface Other {
   dream_world: Dreamworld;
-  home: Home;
+  home: HomeIcons;
   'official-artwork': Officialartwork;
 }
 
@@ -168,7 +168,7 @@ export interface Officialartwork {
   front_default: string;
 }
 
-export interface Home {
+export interface HomeIcons {
   front_default: string;
   front_female?: any;
   front_shiny: string;

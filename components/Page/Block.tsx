@@ -11,7 +11,7 @@ export interface PageBlockProps extends BoxProps<'section'> {
  */
 export default function PageBlock({children}: PageBlockProps) {
   return (
-    <Box m={0} p={'md'} component="section" sx={{
+    <Box m={0} px={'md'} py={'3rem'} component="section" sx={{
       width: '100%',
       overflow: 'hidden',
       wordWrap: 'break-word',
