@@ -3,17 +3,27 @@ import {
   CSSObject, MantineTheme,
 } from '@mantine/core';
 import Head from 'next/head';
+import {VersionName} from '../../services/types';
 import PageHeader from './Header';
+import VersionDrawer from './VersionDrawer';
 
 export interface PageProps extends AppShellProps {
   title: string
   description: string
+  version: VersionName
+  changeVersion: (version: VersionName) => void
 }
 
 const createPageStyles = (t: MantineTheme): Record<string, CSSObject> => {
   return ({
     main: {
-      padding: 0,
+      'padding': 0,
+      'a': {
+        textDecoration: 'none',
+        color: t.colorScheme === 'dark' ?
+          t.colors.blue[3] :
+          t.colors.blue[9],
+      },
     },
   });
 };
@@ -26,9 +36,11 @@ const usePageStyles = createStyles(createPageStyles);
  * @return {ReactElement} Main Page Component
  */
 export default function Page(
-    {title, description, children, ...props}: PageProps,
+    {title, description, children, version, changeVersion, ...props}: PageProps,
 ) {
   const {classes} = usePageStyles();
+
+
   return (
     <AppShell classNames={classes} header={<PageHeader />} {...props}>
       <Head>
@@ -37,6 +49,7 @@ export default function Page(
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {children}
+      <VersionDrawer version={version} changeVersion={changeVersion}/>
     </AppShell>
   );
 }

@@ -292,3 +292,18 @@ export type VersionName = 'red'|'blue'|'yellow'|'gold'|'silver'|'crystal'|
 export type PokemonNamesResults = ApiResults<NamedItem[]>
 export type PokemonTypesResults = ApiResults<NamedItem[]>
 export type VersionsResults = ApiResults<NamedItem[]>
+export interface GenerationResults {
+  id: number
+  name: string
+  abilities: NamedItem[]
+  main_region: NamedItem
+  names: VersionDetailsName[]
+  pokemon_species: NamedItem[]
+  types: NamedItem[]
+  version_groups: NamedItem[]
+}
+export interface GenerationClearDetails {
+  species: NamedItem[]
+  types: NamedItem[]
+  region: NamedItem
+}

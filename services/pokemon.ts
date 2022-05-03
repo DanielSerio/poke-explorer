@@ -7,7 +7,10 @@ import type {
   PokemonTypesResults,
   VersionsResults,
   VersionDetails,
+  GenerationResults,
+  GenerationClearDetails,
 } from './types';
+
 
 export const pokemonApi = createApi({
   reducerPath: 'pokemonApi',
@@ -16,6 +19,17 @@ export const pokemonApi = createApi({
     getAllPokemonNames: builder.query<PokemonNamesResults, string>({
       query: () => `pokemon?limit=100000&offset=0`,
     }),
+    getGenerationDetails:
+      builder.query<GenerationClearDetails, string>({
+        query: (index) => `generation/${index}`,
+        transformResponse(response: GenerationResults) {
+          return {
+            species: response.pokemon_species,
+            types: response.types,
+            region: response.main_region,
+          };
+        },
+      }),
     getPokemonByName: builder.query<Pokemon, string>({
       query: (name) => `pokemon/${name}`,
     }),
@@ -43,4 +57,7 @@ export const {
   useGetEncountersQuery,
   useGetAllTypesQuery,
   useGetTypeDetailsQuery,
+  useGetVersionDetailsQuery,
+  useGetAllVersionsQuery,
+  useGetGenerationDetailsQuery,
 } = pokemonApi;

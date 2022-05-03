@@ -1,7 +1,10 @@
 import {ColorScheme, ColorSchemeProvider, MantineProvider} from '@mantine/core';
 import {useHotkeys, useLocalStorage} from '@mantine/hooks';
 import type {AppProps} from 'next/app';
+import {useCallback, useState} from 'react';
 import {Provider as ReduxProvider} from 'react-redux';
+import {getVersionColor} from '../lib/color';
+import {VersionName} from '../services/types';
 import {store} from '../store';
 /**
  * Root Component
@@ -15,6 +18,13 @@ function MyApp({Component, pageProps}: AppProps) {
     getInitialValueInEffect: true,
   });
 
+  const [version, setVersion] = useState<VersionName>('red');
+
+  const changeVersion = useCallback(
+      (ver: VersionName) => setVersion(ver),
+      [setVersion],
+  );
+
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 
@@ -27,9 +37,13 @@ function MyApp({Component, pageProps}: AppProps) {
       <MantineProvider
         withGlobalStyles
         withNormalizeCSS
-        theme={{colorScheme}}>
+        theme={{
+          colorScheme,
+          primaryColor: getVersionColor(version),
+          white: 'hsl(265,6%,97%)',
+          black: 'hsl(265,6%,6%)'}}>
         <ReduxProvider store={store}>
-          <Component {...pageProps} />
+          <Component {...{version, changeVersion, ...pageProps}} />
         </ReduxProvider>
       </MantineProvider>
     </ColorSchemeProvider>
