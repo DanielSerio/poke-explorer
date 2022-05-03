@@ -1,7 +1,9 @@
 import {
+  ActionIcon,
   Box, createStyles, CSSObject,
   Header, Image, MantineTheme, useMantineColorScheme,
 } from '@mantine/core';
+import {Sun, Moon} from 'tabler-icons-react';
 
 const createHeaderStyles = (t: MantineTheme): Record<string, CSSObject> => {
   return ({
@@ -14,6 +16,24 @@ const createHeaderStyles = (t: MantineTheme): Record<string, CSSObject> => {
       alignItems: 'center',
       justifyContent: 'space-between',
     },
+    darkmodeToggle: {
+      position: 'relative',
+      transformOrigin: 'center center',
+      overflow: 'hidden',
+    },
+    dial: {
+      position: 'absolute',
+      height: '230%',
+      width: '100%',
+      transformOrigin: 'center center',
+      left: '50%',
+      top: '0',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      transition: 'all 80ms ease',
+    },
   });
 };
 
@@ -25,7 +45,7 @@ const useHeaderStyles = createStyles(createHeaderStyles);
  */
 export default function PageHeader() {
   const {classes} = useHeaderStyles();
-  const {colorScheme} = useMantineColorScheme();
+  const {colorScheme, toggleColorScheme} = useMantineColorScheme();
   return (
     <Box component={'header'} className={classes.root}>
       <Header px={'md'} height={72} className={classes.nav}>
@@ -35,7 +55,22 @@ export default function PageHeader() {
             src={colorScheme === 'dark' ? '/logo-dark.svg' : '/logo-light.svg'}
           />
         </Box>
-        <Box>Right</Box>
+        <Box>
+          <ActionIcon
+            variant='filled'
+            color={'gray'}
+            className={classes.darkmodeToggle}
+            onClick={() => toggleColorScheme()}>
+            <Box sx={{
+              transform: colorScheme === 'dark' ?
+                'rotate(0deg) translateX(-50%)' :
+                'rotate(180deg) translateX(50%)',
+            }} className={classes.dial}>
+              <Sun />
+              <Moon style={{transform: 'rotate(180deg)'}}/>
+            </Box>
+          </ActionIcon>
+        </Box>
       </Header>
     </Box>
   );
