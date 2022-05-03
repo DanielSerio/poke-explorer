@@ -3,6 +3,7 @@ import {
   Box, createStyles, CSSObject,
   Header, Image, MantineTheme, useMantineColorScheme,
 } from '@mantine/core';
+import {NextLink} from '@mantine/next';
 import {Sun, Moon} from 'tabler-icons-react';
 
 const createHeaderStyles = (t: MantineTheme): Record<string, CSSObject> => {
@@ -50,10 +51,16 @@ export default function PageHeader() {
     <Box component={'header'} className={classes.root}>
       <Header px={'md'} height={72} className={classes.nav}>
         <Box>
-          <Image
-            width={200}
-            src={colorScheme === 'dark' ? '/logo-dark.svg' : '/logo-light.svg'}
-          />
+          <NextLink href="/">
+            <Image
+              width={200}
+              src={
+                colorScheme === 'dark' ?
+                  '/logo-dark.svg' :
+                  '/logo-light.svg'
+              }
+            />
+          </NextLink>
         </Box>
         <Box>
           <ActionIcon
