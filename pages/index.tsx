@@ -22,7 +22,7 @@ interface HomePageProps {
 }
 
 const useListStyles = createStyles(createListStyles);
-// TODO: Add loading states
+// TODO: Create region page
 const Home: NextPage<HomePageProps> = ({...props}: HomePageProps) => {
   const {data, isLoading} = useGetVersionDetailsQuery(props.version, {
     refetchOnMountOrArgChange: true,
